@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"sync"
 	"text/template"
 )
 
@@ -61,17 +60,6 @@ func (c *Command) Runnable() bool {
 // The order here is the order in which they are printed by 'mypwd help'.
 var commands = []*Command{
 	cmdHello,
-}
-
-var exitStatus = 0
-var exitMu sync.Mutex
-
-func setExitStatus(n int) {
-	exitMu.Lock()
-	if exitStatus < n {
-		exitStatus = n
-	}
-	exitMu.Unlock()
 }
 
 func main() {
